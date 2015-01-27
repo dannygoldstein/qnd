@@ -39,11 +39,10 @@ class Design ( object ) :
     def distance_matrix(self, squareform=True):
         """Euclidean pairwise distance matrix in scaled space.  If squareform
         is flagged, return the full distance matrix, else return the
-        flattened upper triangle."""
+        flattened upper triangle without the main diagonal."""
         d = self.scaled[:, None] - self.scaled[None, :]
         mat = scipy.sqrt((d**2).sum(axis=2))
-        n = len(self)
-        return mat if squareform else mat[scipy.triu_indices(n, 1)]
+        return mat if squareform else mat[scipy.triu_indices(len(self), 1)]
         
     @property
     def compliance( self ) :
