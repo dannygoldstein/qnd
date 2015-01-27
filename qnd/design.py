@@ -1,6 +1,5 @@
 
 import  scipy
-from scipy import spatial
 
 class Design ( object ) :
 
@@ -41,11 +40,10 @@ class Design ( object ) :
         """Euclidean pairwise distance matrix in scaled space.  If squareform
         is flagged, return the full distance matrix, else return the
         flattened upper triangle."""
-        if squareform:
-            return spatial.distance.squareform(
-                spatial.distance.pdist(self.unscaled))
-        else:
-            return spatial.distance.pdist(self.unscaled)
+        d = self.scaled[:, None] - self.scaled[None, :]
+        mat = scipy.sqrt((d**2).sum(axis=2))
+        n = len(self)
+        return mat if squareform else mat[scipy.triu_indices(n, 1)]
         
     @property
     def compliance( self ) :
