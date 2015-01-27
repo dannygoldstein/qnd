@@ -37,11 +37,15 @@ class Design ( object ) :
         """List of Point objects."""
         return [ self[ index ] for index in range( len( self ) ) ]
 
-    @property
-    def distance_matrix(self):
-        """Euclidean pairwise distance matrix in scaled space."""
-        return spatial.distance.squareform(
-            spatial.distance.pdist(self.unscaled))
+    def distance_matrix(self, squareform=True):
+        """Euclidean pairwise distance matrix in scaled space.  If squareform
+        is flagged, return the full distance matrix, else return the
+        flattened upper triangle."""
+        if squareform:
+            return spatial.distance.squareform(
+                spatial.distance.pdist(self.unscaled))
+        else:
+            return spatial.distance.pdist(self.unscaled)
         
     @property
     def compliance( self ) :
