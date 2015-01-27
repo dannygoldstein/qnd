@@ -1,5 +1,6 @@
 
 import  scipy
+from scipy import spatial
 
 class Design ( object ) :
 
@@ -36,6 +37,12 @@ class Design ( object ) :
         """List of Point objects."""
         return [ self[ index ] for index in range( len( self ) ) ]
 
+    @property
+    def distance_matrix(self):
+        """Euclidean pairwise distance matrix in scaled space."""
+        return spatial.distance.squareform(
+            spatial.distance.pdist(self.unscaled))
+        
     @property
     def compliance( self ) :
         """True for Points satisfying constraints, False otherwise."""
