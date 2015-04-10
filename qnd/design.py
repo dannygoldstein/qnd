@@ -40,7 +40,7 @@ class Design ( object ) :
     def compliance( self ) :
         """True for Points satisfying constraints, False otherwise."""
         return scipy.array( [ point.is_compliant for point in self.points ] )
-
+    
     def randomize( self, mask = None ) :
         """Randomizes a subset of points until they are all compliant.  If no
         mask is specified the entire design is randomized."""
@@ -61,3 +61,9 @@ class Design ( object ) :
         return Design(self.point_type, 
                       self.scaler, 
                       scipy.random.choice(self.scaled, size=n, replace=False))
+        
+    def save(self, filename):
+        """Dump a representation of the design to an ASCII file."""
+        with open(filename, 'w') as f:
+            for row in self.unscaled:
+                f.write('%s\n' % ' '.join(row))
