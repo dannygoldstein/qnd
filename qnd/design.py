@@ -1,5 +1,6 @@
 
 import  scipy
+from pprint import pformat
 
 class Design ( object ) :
 
@@ -20,6 +21,9 @@ class Design ( object ) :
         """Return a particular point."""
         unscaled = self.scaler.unscaled( self.scaled[ index ] )
         return self.point_type( *unscaled )
+
+    def __repr__(self):
+        return pformat(self.unscaled)
 
     @property
     def dims( self ) :
@@ -62,8 +66,10 @@ class Design ( object ) :
                       self.scaler, 
                       scipy.random.choice(self.scaled, size=n, replace=False))
         
-    def save(self, filename):
-        """Dump a representation of the design to an ASCII file."""
-        with open(filename, 'w') as f:
-            for row in self.unscaled:
-                f.write('%s\n' % ' '.join(row))
+    def write(self, f):
+        """Write an ASCII representation of the Design to a file.
+
+        -- 
+        f: file-handle or filename"""
+
+        scipy.savetxt(f, self.unscaled)
