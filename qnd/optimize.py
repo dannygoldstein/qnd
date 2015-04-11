@@ -2,6 +2,7 @@
 
 __whatami__ = 'qnd Design optimizers.'
 __author__  = 'Danny Goldstein <dgold@berkeley.edu>'
+__all__     = ['designopt_mc']
 
 from .core import random_design
 import numpy as np
