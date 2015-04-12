@@ -7,29 +7,27 @@ __all__     = ['designopt_mc']
 from .core import random_design
 import numpy as np
 
-def designopt_mc(point_type, lower, upper, score_func, size=100, niter=1000):
+def designopt_mc(point_type, lower, upper, score_func, size=100, niter=1000,
+                 verbose=False):
     """Randomly generate designs. Return the highest-scoring design.
     
     Arguments:
     
     point_type -- (design.Point) The class of points to use for the
     designs. 
-
     lower -- array like (n_features,) The lower boundaries of the
     Design support space.
-    
     upper -- array like (n_features,) The upper boundaries of the
     Design support space.
     
     Keyword Arguments:
 
     size -- (int; default 100) The size of the designs to generate.
-    
-    score_func -- (default maximin) Function that takes an instance of
-    a design and returns a score.
-    
+    score_func -- Function that takes an instance of a design and
+    returns a score.   
     niter -- (int; default 1000) Number of designs to realize. 
-    
+    verbose -- (default False) If true, be chatty.
+
     Returns:
     
     The highest-scoring design.
@@ -43,5 +41,7 @@ def designopt_mc(point_type, lower, upper, score_func, size=100, niter=1000):
         if score > high_score:
             best_design = design
             high_score = score
+            if verbose: 
+                print 'high score: %.5f; design %d' % (score, i)
     
     return best_design
