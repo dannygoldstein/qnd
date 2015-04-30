@@ -13,3 +13,7 @@ class Point ( object ) :
     def _is_compliant( self ) :
         """Subclasses provide an implementation for this."""
         raise NotImplementedError
+
+    @property
+    def ordered(self):
+        """Subclasses must implement this."""
